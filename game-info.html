@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông tin trò chơi - INSIDE XCAPE ROOM</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(45deg, #121212, #1a1a1a, #2d2d2d);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+            color: #f0e68c;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 30px;
+            background: rgba(26, 26, 26, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.2);
+            border: 1px solid rgba(212, 201, 92, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .game-info {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .game-info h2 {
+            color: #ffd700;
+            text-align: center;
+            margin-bottom: 20px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 215, 0, 0.4); }
+            to { text-shadow: 0 0 30px rgba(255, 215, 0, 1), 0 0 60px rgba(255, 215, 0, 0.6); }
+        }
+
+        .game-info p {
+            margin: 15px 0;
+            padding: 10px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid #ffd700;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        .game-info span {
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        .back-btn {
+            background: linear-gradient(45deg, #d4c95c, #ffd700);
+            color: #000;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: 'Orbitron', monospace;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="game-info">
+            <h2>Thông tin trò chơi</h2>
+            <p id="role">Vai trò của bạn: <span id="user-role">Đang tải...</span></p>
+            <p id="task">Nhiệm vụ của bạn: <span id="user-task">Đang tải...</span></p>
+            <p id="score">Điểm của bạn: <span id="user-score">0</span> điểm</p>
+            <button class="back-btn" onclick="goBackToGame()">Quay lại thông tin trò chơi</button>
+        </div>
+    </div>
+
+    <script>
+        // Lấy thông tin từ localStorage hoặc URL parameters
+        function loadGameInfo() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const role = urlParams.get('role') || localStorage.getItem('userRole') || 'Đang tải...';
+            const task = urlParams.get('task') || localStorage.getItem('userTask') || 'Đang tải...';
+            const score = urlParams.get('score') || localStorage.getItem('userScore') || 0;
+            
+            document.getElementById('user-role').textContent = role;
+            document.getElementById('user-task').textContent = task;
+            document.getElementById('user-score').textContent = score;
+        }
+
+        function goBackToGame() {
+            // Quay lại trang thông tin trò chơi
+            window.location.href = 'INDEXX.html';
+        }
+
+        // Load thông tin khi trang được tải
+        window.addEventListener('load', loadGameInfo);
+    </script>
+</body>
+</html>

@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hướng Dẫn Vai Trò - INSIDE XCAPE ROOM</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(45deg, #121212, #1a1a1a, #2d2d2d);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+            color: #f0e68c;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 30px;
+            background: rgba(26, 26, 26, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.2);
+            border: 1px solid rgba(212, 201, 92, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            color: #ffd700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: #d4c95c;
+        }
+
+        .score-section {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 15px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            margin-bottom: 40px;
+        }
+
+        .score-display {
+            font-size: 2rem;
+            color: #ffd700;
+            font-family: 'Orbitron', monospace;
+            font-weight: 900;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+        }
+
+        .role-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .role-card {
+            background: rgba(26, 26, 26, 0.8);
+            border: 2px solid rgba(212, 201, 92, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .role-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+            border-color: #ffd700;
+        }
+
+        .role-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .role-name {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            color: #ffd700;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .role-description {
+            color: #d4c95c;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .role-details {
+            display: none;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(212, 201, 92, 0.3);
+        }
+
+        .role-details.active {
+            display: block;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .detail-section {
+            margin-bottom: 15px;
+        }
+
+        .detail-section h4 {
+            color: #ffd700;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .detail-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .detail-section li {
+            color: #d4c95c;
+            margin-bottom: 5px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .detail-section li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #ffd700;
+        }
+
+        .back-btn {
+            background: linear-gradient(45deg, #d4c95c, #ffd700);
+            color: #000;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: 'Orbitron', monospace;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-icon {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.1;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px;
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .role-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-elements">
+        <div class="floating-icon" style="top: 10%; left: 10%;">🎯</div>
+        <div class="floating-icon" style="top: 20%; right: 15%;">🎭</div>
+        <div class="floating-icon" style="bottom: 20%; left: 20%;">⚔️</div>
+        <div class="floating-icon" style="bottom: 10%; right: 10%;">🛡️</div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>HƯỚNG DẪN VAI TRÒ</h1>
+            <p>Khám phá các vai trò trong game và cách chơi của từng vai trò</p>
+        </div>
+
+        <!-- Phần điểm -->
+        <div class="score-section">
+            <h2>ĐIỂM CỦA BẠN</h2>
+            <div class="score-display">
+                <span id="user-score">0</span> điểm
+            </div>
+        </div>
+
+        <!-- Phần hướng dẫn vai trò -->
+        <div class="role-grid">
+            <!-- Thợ Săn -->
+            <div class="role-card" onclick="toggleDetails('hunter')">
+                <div class="role-icon">🎯</div>
+                <div class="role-name">THỢ SĂN</div>
+                <div class="role-description">
+                    Người bảo vệ làng khỏi các mối đe dọa bí ẩn. Có khả năng tiêu diệt kẻ thù vào ban đêm.
+                </div>
+                <div class="role-details" id="hunter-details">
+                    <div class="detail-section">
+                        <h4>🎯 Cách Chơi</h4>
+                        <ul>
+                            <li>Chọn mục tiêu để tiêu diệt vào ban đêm</li>
+                            <li>Phải cẩn thận không giết nhầm đồng đội</li>
+                            <li>Làm việc với các vai trò khác để bảo vệ làng</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4>⚡ Chức Năng Đặc Biệt</h4>
+                        <ul>
+                            <li>Tiêu diệt 1 người mỗi đêm</li>
+                            <li>Không thể bị chặn bởi vai trò phòng thủ</li>
+                            <li>Có thể bị phản công nếu chọn sai mục tiêu</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4>🏆 Chiến Thắng</h4>
+                        <ul>
+                            <li>Tiêu diệt hết phe đối lập</li>
+                            <li>Bảo vệ thành công làng khỏi mối đe dọa</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ma Sói -->
+            <div class="role-card" onclick="toggleDetails('werewolf')">
+                <div class="role-icon">🐺</div>
+                <div class="role-name">MA SÓI</div>
+                <div class="role-description">
+                    Kẻ săn mồi ban đêm, mục tiêu tiêu diệt toàn bộ người làng để chiến thắng.
+                </div>
+                <div class="role-details" id="werewolf-details">
+                    <div class="detail-section">
+                        <h4>🌙 Cách Chơi</h4>
+                        <ul>
+                            <li>Thảo luận với đồng bọn vào ban đêm</li>
+                            <li>Chọn mục tiêu để tiêu diệt</li>
+                            <li>Giả làm người làng vào ban ngày</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4>🦴 Chức Năng Đặc Biệt</h4>
+                        <ul>
+                            <li>Tiêu diệt 1 người mỗi đêm</li>
+                            <li>Biết danh tính đồng bọn</li>
+                            <li>Có thể bị tiêu diệt bởi thợ săn</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4>🩸 Chiến Thắng</h4>
+                        <ul>
+                            <li>Số lượng sói bằng hoặc nhiều hơn người làng</li>
+                            <li>Tiêu diệt hết các vai trò đặc biệt</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tiên Tri -->
+            <div class="role-card" onclick="toggleDetails('seer')">
+                <div class="role-icon">🔮</div>
+                <div class="role-name">TIÊN TRI</div>
+                <div class="role-description">
+                    Người có khả năng nhìn thấu bản chất thật của người khác vào ban đêm.
+                </div>
+                <div class="role-details" id="seer-details">
+                    <div class="detail-section">
+                        <h4>🔍 Cách Chơi</h4>
+                        <ul>
+                            <li>Chọn 1 người để kiểm tra vào mỗi đêm</li>
+                            <li>Thu thập thông tin và chia sẻ vào ban ngày</li>
+                            <li>Giữ bí mật danh tính của mình</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4>✨ Chức Năng Đặc Biệt</h4>
+                        <ul>
+                            <li>Kiểm tra vai trò của 1 người mỗi đêm</li>
+                            <li>Nhìn thấy rõ bản chất thật</li>
+                            <li>Là mục tiêu ưu tiên của sói</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4>🎯 Chiến Thắng</h4>
+                        <ul>
+                            <li>Giúp làng tiêu diệt hết sói</li>
+                            <li>Phát hiện và loại bỏ các mối đe dọa</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bác Sĩ -->
+            <div class="role-card" onclick="toggleDetails('doctor')">
+                <div class="role-icon">⚕️</div>
+                <div class="role-name">BÁC SĨ</div>
+                <div class="role-description">
+                    Người có khả năng bảo vệ và cứu sống người khác vào ban đêm.
+                </div>
+                <div class="role-details" id="doctor-details">
+                    <div class="detail-section">
+                        <h4>💉 Cách Chơi</h4>
+                        <ul>
+                            <li>Chọn 1 người để bảo vệ mỗi đêm</li>
+                            <li>Không thể bảo vệ chính mình liên tiếp</li>
+                            <li>Làm việc âm thầm để bảo vệ làng</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4>🛡️ Chức Năng Đặc Biệt</h4>
+                        <ul>
+                            <li>Bảo vệ 1 người khỏi bị tiêu diệt</li>
+                            <li>Có thể cứu chính mình 1 lần</li>
+                            <li>Không thể bảo vệ cùng người 2 đêm liên tiếp</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4>🏥 Chiến Thắng</h4>
+                        <ul>
+                            <li>Bảo vệ thành công các thành viên quan trọng</li>
+                            <li>Giúp làng loại bỏ được sói</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dân Làng -->
+            <div class="role-card" onclick="toggleDetails('villager')">
+                <div class="role-icon">👥</div>
+                <div class="role-name">DÂN LÀNG</div>
+                <div class="role-description">
+                    Người dân thường của làng, cùng nhau bình chọn loại bỏ kẻ nghi ngờ.
+                </div>
+                <div class="role-details" id="villager-details">
+                    <div class="detail-section">
+                        <h4>🗳️ Cách Chơi</h4>
+                        <ul>
+                            <li>Thảo luận và bình chọn vào ban ngày</li>
+                            <li>Quan sát và phân tích hành vi của người khác</li>
+                            <li>Làm việc cùng nhau để tìm ra sói</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4>👀 Chức Năng Đặc Biệt</h4>
+                        <ul>
+                            <li>Bình chọn loại bỏ người nghi ngờ</li>
+                            <li>Có thể bị sói tiêu diệt vào ban đêm</li>
+                            <li>Là lực lượng chủ yếu của làng</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4>🏘️ Chiến Thắng</h4>
+                        <ul>
+                            <li>Loại bỏ hết các con sói</li>
+                            <li>Bảo vệ thành công ngôi làng</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phù Thủy -->
+            <div class="role-card" onclick="toggleDetails('witch')">
+                <div class="role-icon">🧙‍♀️</div>
+                <div class="role-name">PHÙ THỦY</div>
+                <div class="role-description">
+                    Người có bình thuốc cứu sống và bình thuốc độc để sử dụng trong game.
+                </div>
+                <div class="role-details" id="witch-details">
+                    <div class="detail-section">
+                        <h4>🧪 Cách Chơi</h4>
+                        <ul>
+                            <li>Biết người bị tiêu diệt vào ban đêm</li>
+                            <li>Có thể cứu hoặc tiêu diệt 1 người</li>
+                            <li>Chỉ sử dụng mỗi loại bình 1 lần</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4>⚗️ Chức Năng Đặc Biệt</h4>
+                        <ul>
+                            <li>Bình cứu sống: cứu 1 người khỏi chết</li>
+                            <li>Bình độc: tiêu diệt 1 người</li>
+                            <li>Quyết định sử dụng vào ban đêm</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4>🔮 Chiến Thắng</h4>
+                        <ul>
+                            <li>Giúp phe của mình chiến thắng</li>
+                            <li>Sử dụng bình thuốc hiệu quả</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="back-btn" onclick="goBack()">← Quay lại game</button>
+    </div>
+
+    <script>
+        function toggleDetails(roleId) {
+            const details = document.getElementById(roleId + '-details');
+            const allDetails = document.querySelectorAll('.role-details');
+            
+            // Đóng tất cả các chi tiết khác
+            allDetails.forEach(detail => {
+                if (detail.id !== roleId + '-details') {
+                    detail.classList.remove('active');
+                }
+            });
+            
+            // Toggle chi tiết được chọn
+            details.classList.toggle('active');
+        }
+
+        function goBack() {
+            // Quay lại trang game chính
+            window.location.href = 'INDEXX.html';
+        }
+
+        // Thêm hiệu ứng hover cho các role card
+        document.querySelectorAll('.role-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Animation khi load trang
+        window.addEventListener('load', function() {
+            const cards = document.querySelectorAll('.role-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.animation = 'fadeInUp 0.6s ease-out forwards';
+                }, index * 100);
+            });
+        });
+
+        // Cập nhật điểm từ localStorage hoặc URL parameters
+        function updateScore() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const score = urlParams.get('score') || localStorage.getItem('userScore') || 0;
+            document.getElementById('user-score').textContent = score;
+        }
+
+        // Gọi hàm cập nhật điểm khi trang load
+        window.addEventListener('load', updateScore);
+    </script>
+</body>
+</html>

@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INSIDE XCAPE ROOM</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400;500&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(45deg, #121212, #1a1a1a, #2d2d2d);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+            color: #f0e68c;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        header {
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            padding: 30px 20px;
+            text-align: center;
+            color: #ffd700;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+            border-bottom: 3px solid #d4c95c;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            animation: shine 3s linear infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 900;
+            font-family: 'Orbitron', monospace;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 215, 0, 0.4);
+            animation: glow 2s ease-in-out infinite alternate;
+            position: relative;
+            z-index: 1;
+        }
+
+        h2 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 1.8rem;
+        }
+
+        .form-group label {
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .form-group input {
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 400;
+        }
+
+        .btn {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .countdown {
+            font-family: 'Orbitron', monospace;
+            font-weight: 900;
+        }
+
+        #role, #task, #score {
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        #role span, #task span, #score span {
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 500;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 215, 0, 0.4); }
+            to { text-shadow: 0 0 30px rgba(255, 215, 0, 1), 0 0 60px rgba(255, 215, 0, 0.6); }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 30px;
+            background: rgba(26, 26, 26, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.2);
+            border: 1px solid rgba(212, 201, 92, 0.3);
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 1s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .game-info, .login-form {
+            animation: slideIn 0.8s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ffd700;
+            font-weight: bold;
+            animation: typing 2s steps(20, end);
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid rgba(240, 230, 140, 0.3);
+            border-radius: 8px;
+            background-color: rgba(26, 26, 26, 0.8);
+            color: #f0e68c;
+            transition: all 0.3s ease;
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 500;
+            font-size: 16px;
+            letter-spacing: 1px;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #ffd700;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+            transform: scale(1.02);
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #d4c95c, #ffd700);
+            color: #000;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: 'Orbitron', monospace;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
+        }
+
+        .btn:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+
+        .countdown {
+            font-size: 48px;
+            margin: 30px 0;
+            text-align: center;
+            color: #ff5555;
+            font-family: 'Orbitron', monospace;
+            font-weight: 900;
+            text-shadow: 0 0 20px rgba(255, 85, 85, 0.8);
+            animation: pulse 1s ease-in-out infinite, shake 0.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-2px); }
+            75% { transform: translateX(2px); }
+        }
+
+        .countdown.warning {
+            color: #ff3333;
+            animation: pulse 0.5s ease-in-out infinite, shake 0.3s ease-in-out infinite;
+        }
+
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 215, 0, 0.6);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .game-info h2 {
+            color: #ffd700;
+            text-align: center;
+            margin-bottom: 20px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        #role, #task, #score {
+            margin: 15px 0;
+            padding: 10px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid #ffd700;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        #role span, #task span, #score span {
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        @keyframes shakeError {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            50% { transform: translateX(10px); }
+            75% { transform: translateX(-5px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="floating-particles" id="particles"></div>
+
+    <header>
+        <h1>INSIDE XCAPE ROOM</h1>
+    </header>
+
+    <div class="container">
+        <div class="login-form">
+            <h2>Đăng nhập</h2>
+            <div class="form-group">
+                <label for="username">Tên người dùng:</label>
+                <input type="text" id="username" placeholder="Nhập tên người dùng">
+            </div>
+            <div class="form-group">
+                <label for="password">Mật khẩu:</label>
+                <input type="password" id="password" placeholder="Nhập mật khẩu">
+            </div>
+            <button class="btn" onclick="login()">Đăng nhập</button>
+        </div>
+
+        <div class="game-info">
+            <button class="btn" onclick="openRoleGuide()" style="position: absolute; top: 20px; right: 20px;">Hướng Dẫn Vai Trò</button>
+            <h2>Thông tin trò chơi</h2>
+            <p id="role">Vai trò của bạn: <span id="user-role"></span></p>
+            <p id="task">Nhiệm vụ của bạn: <span id="user-task"></span></p>
+            <div class="countdown" id="countdown"></div>
+            <p id="score">Điểm của bạn: <span id="user-score"></span></p>
+        </div>
+    </div>
+
+    <footer style="background: linear-gradient(135deg, #1a1a1a, #2d2d2d); padding: 30px 20px; text-align: center; margin-top: 50px; border-top: 3px solid #d4c95c;">
+        <button class="btn" onclick="logout()" style="font-size: 18px; padding: 15px 40px;">Thoát</button>
+        <p style="color: #ffd700; margin-top: 15px; font-family: 'Orbitron', monospace;">INSIDE XCAPE ROOM - Trải nghiệm thực tế ảo</p>
+    </footer>
+
+    <script>
+        const users = {
+            'Đại Nam': { password: 'pass1', role: 'Thợ Săn', task: 'Hoàn thành thử thách A', score: 0 },
+            'user2': { password: 'pass2', role: 'Người chơi 2', task: 'Hoàn thành thử thách B', score: 0 }
+        };
+
+        // Tạo hiệu ứng particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Hiệu ứng typing cho text
+        function typeWriter(element, text, speed = 50) {
+            element.innerHTML = '';
+            let i = 0;
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (users[username] && users[username].password === password) {
+                document.querySelector('.login-form').style.display = 'none';
+                document.querySelector('.game-info').style.display = 'block';
+                
+                // Hiệu ứng typing cho thông tin
+                setTimeout(() => {
+                    typeWriter(document.getElementById('user-role'), users[username].role, 100);
+                    setTimeout(() => {
+                        typeWriter(document.getElementById('user-task'), users[username].task, 100);
+                        setTimeout(() => {
+                            typeWriter(document.getElementById('user-score'), users[username].score.toString(), 100);
+                        }, 1000);
+                    }, 1000);
+                }, 500);
+
+                startCountdown(300);
+            } else {
+                // Hiệu ứng rung cho form khi sai
+                const form = document.querySelector('.login-form');
+                form.style.animation = 'shakeError 0.5s';
+                setTimeout(() => {
+                    form.style.animation = '';
+                }, 500);
+                alert('Tên người dùng hoặc mật khẩu không đúng!');
+            }
+        }
+
+        function logout() {
+            document.querySelector('.game-info').style.display = 'none';
+            document.querySelector('.login-form').style.display = 'block';
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+        }
+
+        function openRoleGuide() {
+            window.open('role-guide.html', '_blank', 'width=1200,height=800');
+        }
+
+        function startCountdown(duration) {
+            let timer = duration, minutes, seconds;
+            const countdownElement = document.getElementById('countdown');
+
+            const interval = setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                countdownElement.innerHTML = minutes + ":" + seconds;
+
+                // Thêm hiệu ứng warning khi còn ít thời gian
+                if (timer <= 60) {
+                    countdownElement.classList.add('warning');
+                }
+
+                if (--timer < 0) {
+                    clearInterval(interval);
+                    countdownElement.innerHTML = "HẾT GIỜ!";
+                    setTimeout(() => {
+                        alert('Thời gian đã hết!');
+                        logout();
+                    }, 1000);
+                }
+            }, 1000);
+        }
+
+        // Khởi tạo particles khi trang load
+        window.addEventListener('load', createParticles);
+
+        // Thêm hiệu ứng focus cho input
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.02)';
+            });
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+
+</body>
+</html>
